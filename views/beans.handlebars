@@ -1,0 +1,42 @@
+<h1>Types of Beans</h1>
+{{!-- <a href="/~askamn/new-bean.html">New Bean</a> --}}
+{{!-- <br /> --}}
+<a href="/beans-coffee">Coffee Bean Table</a>
+<br />
+<form>
+    <p>Find a Bean:</p>
+    <label for="beanID">Bean ID:</label><br>
+    <input type="text" id="beanID" name="beanID"><br>
+    <label for="countryOfOrigin">Country of Origin:</label><br>
+    <input type="text" id="countryOfOrigin" name="countryOfOrigin"><br>
+    <label for="roastType">Roast Type:</label><br>
+    <input type="text" id="roastType" name="roastType"><br>
+    <label for="roastDate">Roast Date:</label><br>
+    <input type="date" id="roastDate" name="roastDate"><br>
+    <button>Filter</button>
+</form>
+<br />
+<p><strong>Beans:</strong></p>
+<table>
+    <thead>
+        <tr>
+            <th>Bean ID:</th>
+            <th>Country of Origin:</th>
+            <th>Roast Type:</th>
+            <th>Roast Date:</th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    <tbody>
+    {{#each data}}
+        <tr>
+            <td>{{this.beanID}}</td>
+            <td>{{this.countryOfOrigin}}</td>
+            <td>{{this.roastType}}</td>
+            <td>{{this.roastDate}}</td>
+            <td>'Update/Delete'</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

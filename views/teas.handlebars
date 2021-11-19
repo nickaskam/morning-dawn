@@ -1,0 +1,50 @@
+    <a href="/new-tea">New Tea</a>
+    <br>
+    <a href="/tea-order">Tea Orders Table</a>
+    <br>
+    <form>
+      <p>Find a Tea:</p>
+      <label for="teaID">Tea ID:</label><br>
+      <input type="text" id="teaID" name="teaID"><br>
+      <label for="origin">Origin:</label><br>
+      <input type="text" id="origin" name="origin"><br>
+      <label for="color">Color:</label><br>
+      <input type="text" id="color" name="color"><br>
+      <label for="matcha">Matcha:</label><br>
+      <input type="text" id="matcha" name="matcha"><br>
+      <label for="flavor">Flavor:</label><br>
+      <input type="text" id="flavor" name="flavor"><br>
+      <label for="season">Season:</label><br>
+      <input type="text" id="season" name="season"><br>
+      <button>Filter</button>
+    </form>
+    <br>
+    <p>Teas:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Tea ID:</th>
+                <th>Origin:</th>
+                <th>Color:</th>
+                <th>Matcha:</th>
+                <th>Flavor:</th>
+                <th>Season:</th>
+                <th>Price:</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each data}}
+            <tr>
+                <td>{{this.teaID}}</td>
+                <td>{{this.origin}}</td>
+                <td>{{this.color}}</td>
+                <td>{{this.matcha}}</td>
+                <td>{{this.flavor}}</td>
+                <td>{{this.season}}</td>
+                <td>{{this.price}}</td>
+                <td>'Update/Delete'</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>

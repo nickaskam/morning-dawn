@@ -1,0 +1,25 @@
+<table>
+    <thead>
+        <tr>
+            <th>Customer ID:</th>
+            <th>First Name:</th>
+            <th>Last Name:</th>
+            <th>Reward Spend:</th>
+            <th>Email:</th>
+            <th>Order ID:</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+            <tr>
+                <td>{{this.customerID}}</td>
+                <td>{{this.firstName}}</td>
+                <td>{{this.lastName}}</td>
+                <td>${{this.rewardSpend}}</td>
+                <td>{{this.email}}</td>
+                <td>'Update/Delete'</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

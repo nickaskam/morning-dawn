@@ -1,0 +1,44 @@
+<a href="/new-coffee">Make a New Coffee</a><br>
+<a href="coffee-order">Coffee Orders</a><br>
+<a href="/beans-coffee">Coffee Beans</a><br>
+<p>Filter:</p>
+<form>
+    <label for="coffeeID">Coffee ID:</label><br>
+    <input type="text" id="coffeeID" name="coffeeID"><br>
+    <label for="type">Type:</label><br>
+    <input type="text" id="type" name="type"><br>
+    <label for="additive">Additive:</label><br>
+    <input type="text" id="additive" name="additive"><br>
+    <button>Filter</button>
+</form>
+<br />
+<table>
+    <thead>
+        <tr>
+            <th>Coffee ID:</th>
+            <th>Type:</th>
+            <th>Volume of Coffee (in grams):</th>
+            <th>Volume of Water (in liters):</th>
+            <th>Additive:</th>
+            <th>Brew Time:</th>
+            <th>Price:</th>
+            <th>Special Requests:</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.coffeeID}}</td>
+            <td>{{this.type}}</td>
+            <td>{{this.volumeOfCoffeeInGrams}}</td>
+            <td>{{this.volumeOfWaterInLiters}}</td>
+            <td>{{this.additive}}</td>
+            <td>{{this.brewTime}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.specialRequest}}</td>
+            <td>'Update/Delete'</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

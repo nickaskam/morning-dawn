@@ -1,0 +1,16 @@
+<table>
+    <thead>
+        <tr>
+            <th>Order ID:</th>
+            <th>Coffee ID:</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each data}}
+        <tr>
+            <td>{{this.orderID}}</td>
+            <td>{{this.coffeeID}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
