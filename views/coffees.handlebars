@@ -42,3 +42,21 @@
         {{/each}}
     </tbody>
 </table>
+
+<form id="newCoffee" method="POST" action="/newCoffee">
+    <label for="type">Type:</label><br />
+    <input type="text" id="type" name="type"><br />
+    <label for="volumeOfCoffeeInGrams">Volume of Coffee (In Grams):</label><br />
+    <input type="number" id="volumeOfCoffeeInGrams" name="volumeOfCoffeeInGrams"><br />
+    <label for="volumeOfWaterInLiters">Volume of Water (In Liters):</label><br />
+    <input type="number" id="volumeOfWaterInLiters" name="volumeOfWaterInLiters"><br />
+    <label for="additive">Additive:</label><br />
+    <input type="text" id="additive" name="additive"><br />
+    <label for="brewTime">Brew Time:</label><br />
+    <input type="text" id="brewTime" name="brewTime"><br />
+    <label for="price">Price:</label><br />
+    <input type="number" id="price" name="price"><br />
+    <label for="specialRequest">Special Request:</label><br />
+    <input type="text" id="specialRequest" name="specialRequest"><br />
+    <button type="submit">Create a New Coffee</button>
+</form>

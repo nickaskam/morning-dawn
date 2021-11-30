@@ -1,8 +1,8 @@
 <table>
     <thead>
         <tr>
-            <th>Coffee ID:</th>
             <th>Bean ID:</th>
+            <th>Coffee ID:</th>
         </tr>
     </thead>
     <tbody>
@@ -14,3 +14,11 @@
     {{/each}}
     </tbody>
 </table>
+
+<form id="addBeansCoffee" method="POST" action="/addBeansCoffee">
+    <label for="beanID">Bean ID</label>
+    <input name="beanID" type="text" id="beanID" />
+    <label for="coffee ID">Coffee ID</label>
+    <input name="coffeeID" type="text" id="coffeeID" />
+    <button type="submit">Add Beans Coffee</button> 
+</form>

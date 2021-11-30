@@ -1,16 +1,24 @@
 <table>
     <thead>
         <tr>
-            <th>Order ID:</th>
             <th>Coffee ID:</th>
+            <th>Order ID:</th>
         </tr>
     </thead>
     <tbody>
     {{#each data}}
         <tr>
-            <td>{{this.orderID}}</td>
             <td>{{this.coffeeID}}</td>
+            <td>{{this.orderID}}</td>
         </tr>
     {{/each}}
     </tbody>
 </table>
+
+<form id="addCoffeeOrders" method="POST" action="/addCoffeeOrders">
+    <label for="coffeeID">Coffee ID</label>
+    <input name="coffeeID" type="text" id="coffeeID" />
+    <label for="orderID">Order ID</label>
+    <input name="orderID" type="text" id="orderID" />
+    <button type="submit">Add Coffee Order</button> 
+</form>

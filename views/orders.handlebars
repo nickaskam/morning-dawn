@@ -35,3 +35,17 @@
         {{/each}}
         </tbody>
     </table>
+
+<form id="addOrder" method="POST" action="/addOrder">
+    <label for="orderDate">Date:</label><br />
+    <input type="date" id="orderDate" name="orderDate"><br />
+    <label for="orderTotal">Order Price:</label><br />
+    <input type="number" id="orderTotal" name="orderTotal"><br />
+    <label for="customerID">Customer ID:</label><br />
+    <select name="customerID" id="customerID">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select><br />
+    <button type="submit">Create new order</button>
+</form>

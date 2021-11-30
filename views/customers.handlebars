@@ -23,3 +23,15 @@
         {{/each}}
     </tbody>
 </table>
+
+<form id="addCustomer" method="POST" action="/addCustomer">
+    <label for="firstName">First Name</label><br />
+    <input type="text" id="firstName" name="firstName"><br />
+    <label for="lastName">Last Name</label><br />
+    <input type="text" id="lastName" name="lastName"><br />
+    <label for="rewardSpend">Reward Spend</label><br />
+    <input type="number" id="rewardSpend" name="rewardSpend"><br />
+    <label for="email">Email:</label><br />
+    <input type="email" id="email" name="email"><br />
+    <button type="submit">Create a new Customer</button>
+</form>
