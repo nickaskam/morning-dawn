@@ -31,6 +31,7 @@
                 <th>Season:</th>
                 <th>Price:</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -43,7 +44,8 @@
                 <td>{{this.flavor}}</td>
                 <td>{{this.season}}</td>
                 <td>{{this.price}}</td>
-                <td>'Update/Delete'</td>
+                <td>Update</td>
+                <td><button onclick="deleteTea({{this.teaID}})">Delete</button></td>
             </tr>
         {{/each}}
         </tbody>

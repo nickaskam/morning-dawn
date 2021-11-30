@@ -231,6 +231,15 @@ app.get('/customers/:id', function(req, res) {
   })
 })
 
+app.get('/coffees/:id', function(req, res) {
+  let query = 'SELECT * FROM Coffees WHERE Coffees.coffeeID = ?'
+  inserts = [req.params.id]
+
+  db.pool.query(query, function (error, rows, fields) {
+    res.render('update-coffees', { data: rows });
+  })
+})
+
 // updates
 app.put('/updateOrder/:id', function(req, res){
   let query = `UPDATE Orders SET orderDate = ?, orderTotal = ?, customerID = ? WHERE Orders.orderID = ?;`
@@ -250,6 +259,21 @@ app.put('/updateOrder/:id', function(req, res){
 app.put('/updateCustomer/:id', function(req, res){
   let query = `UPDATE Customers SET firstName = ?, lastName = ?, rewardSpend = ?, email = ? WHERE Customers.customerID = ?;`
   let inserts = [req.body.firstName, req.body.lastName, req.body.rewardSpend, req.body.email, req.params.id];
+  db.pool.query(query, inserts, function(error, results, fields){
+      if(error){
+          console.log(error)
+          res.write(JSON.stringify(error));
+          res.end();
+      }else{
+          res.status(200);
+          res.end();
+      }
+  });
+});
+
+app.put('/updateCoffee/:id', function(req, res){
+  let query = `UPDATE Coffees SET type = ?, volumeOfCoffeeInGrams = ?, volumeOfWaterInLiters = ?, additive = ?, brewTime = ?, price = ?, specialRequest = ? WHERE Coffees.coffeeID = ?;`
+  let inserts = [req.body.type, req.body.volumeOfCoffeeInGrams, req.body.volumeOfWaterInLiters, req.body.additive, req.body.brewTime, req.body.price, req.body.specialRequest, req.params.id];
   db.pool.query(query, inserts, function(error, results, fields){
       if(error){
           console.log(error)
@@ -293,10 +317,87 @@ app.delete('/deleteCustomer/:id', function (req, res) {
   })
 })
 
+app.delete('/deleteCoffee/:id', function (req, res) {
+  // let data = req.body
+  let query1 = `DELETE FROM Coffees WHERE Coffees.coffeeID = ?`
+  db.pool.query(query1, [req.params.id], function(error, results, fields){
+    if(error){
+        console.log(error)
+        res.write(JSON.stringify(error))
+        res.status(400)
+        res.end()
+    }else{
+        res.status(202).end()
+    }
+  })
+})
+
+app.delete('/deleteBean/:id', function (req, res) {
+  // let data = req.body
+  let query1 = `DELETE FROM Beans WHERE Beans.beanID = ?`
+  db.pool.query(query1, [req.params.id], function(error, results, fields){
+    if(error){
+        console.log(error)
+        res.write(JSON.stringify(error))
+        res.status(400)
+        res.end()
+    }else{
+        res.status(202).end()
+    }
+  })
+})
+
+app.delete('/deleteTea/:id', function (req, res) {
+  // let data = req.body
+  let query1 = `DELETE FROM Teas WHERE Teas.teaID = ?`
+  db.pool.query(query1, [req.params.id], function(error, results, fields){
+    if(error){
+        console.log(error)
+        res.write(JSON.stringify(error))
+        res.status(400)
+        res.end()
+    }else{
+        res.status(202).end()
+    }
+  })
+})
+
 app.delete('/coffeeOrders/coffeeID/:coffeeID/orderID/:orderID', function (req, res) {
   // let data = req.body
   let query1 = `DELETE FROM CoffeeOrders WHERE CoffeeOrders.orderID = ? AND CoffeeOrders.coffeeID = ?`
   let insert = [req.params.orderID, req.params.coffeeID]
+  db.pool.query(query1, insert, function(error, results, fields){
+    if(error){
+        console.log(error)
+        res.write(JSON.stringify(error))
+        res.status(400)
+        res.end()
+    }else{
+        res.status(202).end()
+    }
+  })
+})
+
+app.delete('/deleteTeaOrders/teaID/:teaID/orderID/:orderID', function (req, res) {
+  // let data = req.body
+  let query1 = `DELETE FROM TeaOrders WHERE TeaOrders.orderID = ? AND TeaOrders.teaID = ?`
+  let insert = [req.params.orderID, req.params.teaID]
+  db.pool.query(query1, insert, function(error, results, fields){
+    if(error){
+        console.log(error)
+        res.write(JSON.stringify(error))
+        res.status(400)
+        res.end()
+    }else{
+        res.status(202).end()
+    }
+  })
+})
+
+app.delete('/deleteBeanCoffees/coffeeID/:coffeeID/beanID/:beanID', function (req, res) {
+  // let data = req.body
+  let query1 = `DELETE FROM BeansWithCoffees WHERE BeansWithCoffees.coffeeID = ? AND BeansWithCoffees.beanID = ?`
+  let insert = [req.params.coffeeID, req.params.beanID]
   db.pool.query(query1, insert, function(error, results, fields){
     if(error){
         console.log(error)

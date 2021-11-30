@@ -19,3 +19,14 @@ function updateCustomer(id){
         }
     })
 };
+
+function updateCoffee(id){
+    $.ajax({
+        url: '/updateCoffee/' + id,
+        type: 'PUT',
+        data: $('#update-coffee').serialize(),
+        success: function(result){
+            window.location.replace("./");
+        }
+    })
+};

@@ -3,6 +3,7 @@
         <tr>
             <th>Tea ID:</th>
             <th>Order ID:</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -10,6 +11,7 @@
         <tr>
             <td>{{this.teaID}}</td>
             <td>{{this.orderID}}</td>
+            <td><button onclick="deleteTeaOrders({{this.teaID}}, {{this.orderID}})">Delete</button></td>
         </tr>
     {{/each}}
     </tbody>

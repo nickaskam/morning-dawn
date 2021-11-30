@@ -3,6 +3,7 @@
         <tr>
             <th>Bean ID:</th>
             <th>Coffee ID:</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -10,6 +11,7 @@
         <tr>
             <td>{{this.beanID}}</td>
             <td>{{this.coffeeID}}</td>
+            <td><button onclick="deleteBeanCoffees({{this.coffeeID}}, {{this.beanID}})">Delete</button></td>
         </tr>
     {{/each}}
     </tbody>

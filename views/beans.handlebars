@@ -25,6 +25,7 @@
             <th>Roast Type:</th>
             <th>Roast Date:</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     
@@ -35,7 +36,8 @@
             <td>{{this.countryOfOrigin}}</td>
             <td>{{this.roastType}}</td>
             <td>{{this.roastDate}}</td>
-            <td>'Update/Delete'</td>
+            <td>Update</td>
+            <td><button onclick="deleteBean({{this.beanID}})">Delete</button></td>
         </tr>
     {{/each}}
     </tbody>

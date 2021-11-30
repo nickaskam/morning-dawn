@@ -37,8 +37,8 @@
             <td>{{this.brewTime}}</td>
             <td>{{this.price}}</td>
             <td>{{this.specialRequest}}</td>
-            <td>Update</td>
-            <td>Delete</td>
+            <td><a href="/coffees/{{this.coffeeID}}">Update</a></td>
+            <td><button onclick="deleteCoffee({{this.coffeeID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
