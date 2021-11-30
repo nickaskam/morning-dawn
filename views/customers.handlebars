@@ -6,7 +6,7 @@
             <th>Last Name:</th>
             <th>Reward Spend:</th>
             <th>Email:</th>
-            <th>Order ID:</th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -18,7 +18,10 @@
                 <td>{{this.lastName}}</td>
                 <td>${{this.rewardSpend}}</td>
                 <td>{{this.email}}</td>
-                <td>'Update/Delete'</td>
+                <td><a href="/customers/{{this.customerID}}">Update</a></td>
+                <td>
+                    <button onclick="deleteCustomer({{this.customerID}})">Delete</button>
+                </td>
             </tr>
         {{/each}}
     </tbody>

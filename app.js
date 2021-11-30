@@ -222,10 +222,34 @@ app.get('/orders/:id', function(req, res) {
   })
 })
 
+app.get('/customers/:id', function(req, res) {
+  let query = 'SELECT * FROM Customers WHERE Customers.customerID = ?'
+  inserts = [req.params.id]
+
+  db.pool.query(query, function (error, rows, fields) {
+    res.render('update-customers', { data: rows });
+  })
+})
+
 // updates
 app.put('/updateOrder/:id', function(req, res){
-  let query = `UPDATE Orders SET orderDate = ?, orderTotal = ?, customerID = ? WHERE Orders.orderID = 5;`
+  let query = `UPDATE Orders SET orderDate = ?, orderTotal = ?, customerID = ? WHERE Orders.orderID = ?;`
   var inserts = [req.body.orderDate, req.body.orderTotal, req.body.customerID, req.params.id];
+  db.pool.query(query, inserts, function(error, results, fields){
+      if(error){
+          console.log(error)
+          res.write(JSON.stringify(error));
+          res.end();
+      }else{
+          res.status(200);
+          res.end();
+      }
+  });
+});
+
+app.put('/updateCustomer/:id', function(req, res){
+  let query = `UPDATE Customers SET firstName = ?, lastName = ?, rewardSpend = ?, email = ? WHERE Customers.customerID = ?;`
+  let inserts = [req.body.firstName, req.body.lastName, req.body.rewardSpend, req.body.email, req.params.id];
   db.pool.query(query, inserts, function(error, results, fields){
       if(error){
           console.log(error)
@@ -243,6 +267,37 @@ app.delete('/deleteOrder/:id', function (req, res) {
   // let data = req.body
   let query1 = `DELETE FROM Orders WHERE Orders.orderID = ?`
   db.pool.query(query1, [req.params.id], function(error, results, fields){
+    if(error){
+        console.log(error)
+        res.write(JSON.stringify(error))
+        res.status(400)
+        res.end()
+    }else{
+        res.status(202).end()
+    }
+  })
+})
+
+app.delete('/deleteCustomer/:id', function (req, res) {
+  // let data = req.body
+  let query1 = `DELETE FROM Customers WHERE Customers.customerID = ?`
+  db.pool.query(query1, [req.params.id], function(error, results, fields){
+    if(error){
+        console.log(error)
+        res.write(JSON.stringify(error))
+        res.status(400)
+        res.end()
+    }else{
+        res.status(202).end()
+    }
+  })
+})
+
+app.delete('/coffeeOrders/coffeeID/:coffeeID/orderID/:orderID', function (req, res) {
+  // let data = req.body
+  let query1 = `DELETE FROM CoffeeOrders WHERE CoffeeOrders.orderID = ? AND CoffeeOrders.coffeeID = ?`
+  let insert = [req.params.orderID, req.params.coffeeID]
+  db.pool.query(query1, insert, function(error, results, fields){
     if(error){
         console.log(error)
         res.write(JSON.stringify(error))

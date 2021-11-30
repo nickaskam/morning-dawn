@@ -1,17 +1,3 @@
-{{!-- <form id="updateOrder" method="POST" action="/addOrder">
-    <label for="orderDate">Date:</label><br />
-    <input type="date" id="orderDate" name="orderDate"><br />
-    <label for="orderTotal">Order Price:</label><br />
-    <input type="number" id="orderTotal" name="orderTotal"><br />
-    <label for="customerID">Customer ID:</label><br />
-    <select name="customerID" id="customerID">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-    </select><br />
-    <button type="submit">Create new order</button>
-</form> --}}
-{{!-- {{#each data}} --}}
 <h1>Update {{this.orderID}}:</h1>
 <form id="update-order" action="/updateOrder" method="POST">
     Order Date: <input type="date" name="orderDate" value="{{this.orderDate}}"><br>
@@ -24,4 +10,3 @@
     </select><br />
 </form>
 <button onclick="updateOrder({{order.id}})">Update</button>
-{{!-- {{/each}} --}}

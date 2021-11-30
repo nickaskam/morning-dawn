@@ -8,3 +8,14 @@ function updateOrder(id){
         }
     })
 };
+
+function updateCustomer(id){
+    $.ajax({
+        url: '/updateCustomer/' + id,
+        type: 'PUT',
+        data: $('#update-customer').serialize(),
+        success: function(result){
+            window.location.replace("./");
+        }
+    })
+};
