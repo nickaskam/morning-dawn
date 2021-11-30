@@ -1,41 +1,46 @@
-    <a href="/new-order">Create New Order</a><br>
-    <a href="/coffee-order">Coffee Orders Table</a>
-    <br>
-    <a href="/tea-order">Tea Orders Table</a>
-    <br>
-    <form>
-      <p>Find an Order:</p>
-      <label for="orderID">Order ID:</label><br>
-      <input type="text" id="orderID" name="orderID"><br>
-      <label for="orderDate">Date:</label><br>
-      <input type="date" id="orderDate" name="orderDate"><br>
-      <button>Filter</button>
-    </form>
-    <br />
-    <p><strong>Orders:</strong></p>
-    <table>
-        <thead>
-            <tr>
-                <th>Order ID:</th>
-                <th>Order Date:</th>
-                <th>Order Total:</th>
-                <th>Customer ID:</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {{#each data}}
-            <tr>
-                <td>{{this.orderID}}</td>
-                <td>{{this.orderDate}}</td>
-                <td>{{this.orderTotal}}</td>
-                <td>{{this.customerID}}</td>
-                <td>'Update/Delete'</td>
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
 
+<a href="/coffee-orders">Coffee Orders Table</a>
+<br>
+<a href="/tea-orders">Tea Orders Table</a>
+<br>
+<form>
+    <p>Find an Order:</p>
+    <label for="orderID">Order ID:</label><br>
+    <input type="text" id="orderID" name="orderID"><br>
+    <label for="orderDate">Date:</label><br>
+    <input type="date" id="orderDate" name="orderDate"><br>
+    <button>Filter</button>
+</form>
+<br />
+<p><strong>Orders:</strong></p>
+<table>
+    <thead>
+        <tr>
+            <th>Order ID:</th>
+            <th>Order Date:</th>
+            <th>Order Total:</th>
+            <th>Customer ID:</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each data}}
+        <tr>
+            <td>{{this.orderID}}</td>
+            <td>{{this.orderDate}}</td>
+            <td>${{this.orderTotal}}</td>
+            <td>{{this.customerID}}</td>
+            <td><a href="/orders/{{this.orderID}}">Update</a></td>
+            <td>
+                <button onclick="deleteOrder({{this.orderID}})">Delete</button>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+<h4>Create a New Order</h4>
 <form id="addOrder" method="POST" action="/addOrder">
     <label for="orderDate">Date:</label><br />
     <input type="date" id="orderDate" name="orderDate"><br />

@@ -1,5 +1,4 @@
-<a href="/new-coffee">Make a New Coffee</a><br>
-<a href="coffee-order">Coffee Orders</a><br>
+<a href="coffee-orders">Coffee Orders</a><br>
 <a href="/beans-coffee">Coffee Beans</a><br>
 <p>Filter:</p>
 <form>
@@ -24,6 +23,7 @@
             <th>Price:</th>
             <th>Special Requests:</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -37,12 +37,14 @@
             <td>{{this.brewTime}}</td>
             <td>{{this.price}}</td>
             <td>{{this.specialRequest}}</td>
-            <td>'Update/Delete'</td>
+            <td>Update</td>
+            <td>Delete</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
+<h4>Create a New Coffee</h4>
 <form id="newCoffee" method="POST" action="/newCoffee">
     <label for="type">Type:</label><br />
     <input type="text" id="type" name="type"><br />

@@ -212,6 +212,48 @@ app.post('/addTea', function (req, res) {
   })
 })
 
+// get 1
+app.get('/orders/:id', function(req, res) {
+  let query = 'SELECT * FROM Orders WHERE Orders.orderID = ?'
+  inserts = [req.params.id]
+
+  db.pool.query(query, function (error, rows, fields) {
+    res.render('update-orders', { data: rows });
+  })
+})
+
+// updates
+app.put('/updateOrder/:id', function(req, res){
+  let query = `UPDATE Orders SET orderDate = ?, orderTotal = ?, customerID = ? WHERE Orders.orderID = 5;`
+  var inserts = [req.body.orderDate, req.body.orderTotal, req.body.customerID, req.params.id];
+  db.pool.query(query, inserts, function(error, results, fields){
+      if(error){
+          console.log(error)
+          res.write(JSON.stringify(error));
+          res.end();
+      }else{
+          res.status(200);
+          res.end();
+      }
+  });
+});
+
+// deletes
+app.delete('/deleteOrder/:id', function (req, res) {
+  // let data = req.body
+  let query1 = `DELETE FROM Orders WHERE Orders.orderID = ?`
+  db.pool.query(query1, [req.params.id], function(error, results, fields){
+    if(error){
+        console.log(error)
+        res.write(JSON.stringify(error))
+        res.status(400)
+        res.end()
+    }else{
+        res.status(202).end()
+    }
+  })
+})
+
 app.listen(PORT, function(){
   console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });
