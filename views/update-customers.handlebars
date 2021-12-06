@@ -1,4 +1,4 @@
-<h1>Update {{customer.firstName}}</h1>
+<h1>Update {{customer.firstName}} {{customer.lastName}}</h1>
 <form id="update-customer" method="POST" action="/updateCustomer">
     <label for="firstName">First Name</label><br />
     <input type="text" id="firstName" name="firstName" value="{{customer.firstName}}"><br />
@@ -9,4 +9,4 @@
     <label for="email">Email:</label><br />
     <input type="email" id="email" name="email" value="{{customer.email}}"><br />
 </form>
-<button onclick="updateCustomer({{customer.customerID}})">Update Customer</button>
+<button class="btn btn-primary" onclick="updateCustomer({{customer.customerID}})">Update Customer</button>

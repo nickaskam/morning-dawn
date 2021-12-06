@@ -162,22 +162,6 @@ app.post('/addBean', function (req, res) {
   })
 })
 
-// app.post('/addCustomer', function (req, res) {
-//   let data = req.body
-
-//   let query1 = `INSERT INTO Customers (firstName, lastName, rewardSpend, email)
-//                 VALUES ('${data.firstName}', '${data.lastName}', '${data.rewardSpend}', '${data.email}')`
-
-//   db.pool.query(query1, function (error, rows, fields) {
-//     if (error) {
-//       console.log(error)
-//       res.sendStatus(400)
-//     } else {
-//       res.redirect('/customers')
-//     }
-//   })
-// })
-
 app.post('/addOrder', function (req, res) {
   let data = req.body
 
@@ -245,21 +229,6 @@ app.put('/updateOrder/:id', function(req, res){
   });
 });
 
-// app.put('/updateCustomer/:id', function(req, res){
-//   let query = `UPDATE Customers SET firstName = ?, lastName = ?, rewardSpend = ?, email = ? WHERE Customers.customerID = ?;`
-//   let inserts = [req.body.firstName, req.body.lastName, req.body.rewardSpend, req.body.email, req.params.id];
-//   db.pool.query(query, inserts, function(error, results, fields){
-//       if(error){
-//           console.log(error)
-//           res.write(JSON.stringify(error));
-//           res.end();
-//       }else{
-//           res.status(200);
-//           res.end();
-//       }
-//   });
-// });
-
 app.put('/updateCoffee/:id', function(req, res){
   let query = `UPDATE Coffees SET type = ?, volumeOfCoffeeInGrams = ?, volumeOfWaterInLiters = ?, additive = ?, brewTime = ?, price = ?, specialRequest = ? WHERE Coffees.coffeeID = ?;`
   let inserts = [req.body.type, req.body.volumeOfCoffeeInGrams, req.body.volumeOfWaterInLiters, req.body.additive, req.body.brewTime, req.body.price, req.body.specialRequest, req.params.id];
@@ -290,21 +259,6 @@ app.delete('/deleteOrder/:id', function (req, res) {
     }
   })
 })
-
-// app.delete('/deleteCustomer/:id', function (req, res) {
-//   // let data = req.body
-//   let query1 = `DELETE FROM Customers WHERE Customers.customerID = ?`
-//   db.pool.query(query1, [req.params.id], function(error, results, fields){
-//     if(error){
-//         console.log(error)
-//         res.write(JSON.stringify(error))
-//         res.status(400)
-//         res.end()
-//     }else{
-//         res.status(202).end()
-//     }
-//   })
-// })
 
 app.delete('/deleteCoffee/:id', function (req, res) {
   // let data = req.body

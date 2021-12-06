@@ -1,11 +1,16 @@
+<h2>Customers</h2>
 <form id='search_customer' action='' method=''>
+    <div class="mb-3">
+        <label class="form-label"> Search people for first name starting with:</label>
+        <input id='first_name_search_string' class="form-control" type='text' name='first_name_search_string' value=''>  
+    </div>
 <!--- this form does not submit directly, the button handles all the interaction with backend -->
-    <label> Search people for first name starting with:</label>
-    <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
-    <input type="button" value="Search" onclick="searchCustomersByFirstName()">
+
+    <input class='btn btn-primary' type="button" value="Search" onclick="searchCustomersByFirstName()">
 </form>
 
-<table>
+<h4>Current Customers</h4>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Customer ID:</th>
@@ -27,13 +32,15 @@
                 <td>{{email}}</td>
                 <td><a href="/customers/{{customerID}}">Update</a></td>
                 <td>
-                    <button onclick="deleteCustomer({{customerID}})">Delete</button>
+                    <button class="btn btn-danger" onclick="deleteCustomer({{customerID}})">Delete</button>
                 </td>
             </tr>
         {{/each}}
     </tbody>
 </table>
 
+<br />
+<h4>Create a New Customer</h4>
 <form id="addCustomer" method="POST" action="/customers/">
     <label for="firstName">First Name</label><br />
     <input type="text" id="firstName" name="firstName"><br />
@@ -43,5 +50,5 @@
     <input type="number" id="rewardSpend" name="rewardSpend"><br />
     <label for="email">Email:</label><br />
     <input type="email" id="email" name="email"><br />
-    <button type="submit">Create a new Customer</button>
+    <button type="submit" class="btn btn-primary">Create a new Customer</button>
 </form>

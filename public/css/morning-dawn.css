@@ -3,6 +3,11 @@ body {
     margin: 5%;
 }
 
+.inner-body {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -24,5 +29,5 @@ form {
     border: 1px solid black;
     width: 50%;
     margin: 2%;
-    padding-left: 2%;
+    padding: 2%;
 }
