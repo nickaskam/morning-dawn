@@ -10,7 +10,7 @@ function deleteOrder(id){
 
 function deleteCustomer(id){
     $.ajax({
-        url: '/deleteCustomer/' + id,
+        url: id,
         type: 'DELETE',
         success: function(result){
             window.location.reload(true)
@@ -20,7 +20,7 @@ function deleteCustomer(id){
 
 function deleteCoffee(id){
     $.ajax({
-        url: '/deleteCoffee/' + id,
+        url: id,
         type: 'DELETE',
         success: function(result){
             window.location.reload(true)

@@ -1,12 +1,12 @@
-<h1>Update </h1>
+<h1>Update {{customer.firstName}}</h1>
 <form id="update-customer" method="POST" action="/updateCustomer">
     <label for="firstName">First Name</label><br />
-    <input type="text" id="firstName" name="firstName"><br />
+    <input type="text" id="firstName" name="firstName" value="{{customer.firstName}}"><br />
     <label for="lastName">Last Name</label><br />
-    <input type="text" id="lastName" name="lastName"><br />
+    <input type="text" id="lastName" name="lastName" value="{{customer.lastName}}"><br />
     <label for="rewardSpend">Reward Spend</label><br />
-    <input type="number" id="rewardSpend" name="rewardSpend"><br />
+    <input type="number" id="rewardSpend" name="rewardSpend" value="{{customer.rewardSpend}}"><br />
     <label for="email">Email:</label><br />
-    <input type="email" id="email" name="email"><br />
+    <input type="email" id="email" name="email" value="{{customer.email}}"><br />
 </form>
-<button onclick="updateCustomer({{customer.id}})">Update Customer</button>
+<button onclick="updateCustomer({{customer.customerID}})">Update Customer</button>

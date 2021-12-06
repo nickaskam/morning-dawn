@@ -5,30 +5,28 @@ PORT = 11360
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+var bodyParser = require('body-parser')
 
 const db = require('./database/db-connector')
+const mysql = require('./database/db-connector.js')
 
 const handlebars = require('express-handlebars').create({
   defaultLayout: 'main',
 })
 
 app.engine('handlebars', handlebars.engine)
-app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({extended:true}))
+app.use('/static', express.static('public'))
 app.set('view engine', 'handlebars')
+app.set('mysql', mysql)
+app.use('/customers', require('./customers.js'))
+app.use('/', express.static('public'))
 
 app.get('/', function (req, res) {
   res.render('index');
 });
 
 // reads
-
-app.get('/customers', function(req, res) {
-  let query = 'SELECT * FROM Customers;'
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('customers', { data: rows });
-  })
-})
 
 app.get('/beans', function(req, res) {
   let query = 'SELECT * FROM Beans;'
@@ -164,21 +162,21 @@ app.post('/addBean', function (req, res) {
   })
 })
 
-app.post('/addCustomer', function (req, res) {
-  let data = req.body
+// app.post('/addCustomer', function (req, res) {
+//   let data = req.body
 
-  let query1 = `INSERT INTO Customers (firstName, lastName, rewardSpend, email)
-                VALUES ('${data.firstName}', '${data.lastName}', '${data.rewardSpend}', '${data.email}')`
+//   let query1 = `INSERT INTO Customers (firstName, lastName, rewardSpend, email)
+//                 VALUES ('${data.firstName}', '${data.lastName}', '${data.rewardSpend}', '${data.email}')`
 
-  db.pool.query(query1, function (error, rows, fields) {
-    if (error) {
-      console.log(error)
-      res.sendStatus(400)
-    } else {
-      res.redirect('/customers')
-    }
-  })
-})
+//   db.pool.query(query1, function (error, rows, fields) {
+//     if (error) {
+//       console.log(error)
+//       res.sendStatus(400)
+//     } else {
+//       res.redirect('/customers')
+//     }
+//   })
+// })
 
 app.post('/addOrder', function (req, res) {
   let data = req.body
@@ -222,15 +220,6 @@ app.get('/orders/:id', function(req, res) {
   })
 })
 
-app.get('/customers/:id', function(req, res) {
-  let query = 'SELECT * FROM Customers WHERE Customers.customerID = ?'
-  inserts = [req.params.id]
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('update-customers', { data: rows });
-  })
-})
-
 app.get('/coffees/:id', function(req, res) {
   let query = 'SELECT * FROM Coffees WHERE Coffees.coffeeID = ?'
   inserts = [req.params.id]
@@ -256,20 +245,20 @@ app.put('/updateOrder/:id', function(req, res){
   });
 });
 
-app.put('/updateCustomer/:id', function(req, res){
-  let query = `UPDATE Customers SET firstName = ?, lastName = ?, rewardSpend = ?, email = ? WHERE Customers.customerID = ?;`
-  let inserts = [req.body.firstName, req.body.lastName, req.body.rewardSpend, req.body.email, req.params.id];
-  db.pool.query(query, inserts, function(error, results, fields){
-      if(error){
-          console.log(error)
-          res.write(JSON.stringify(error));
-          res.end();
-      }else{
-          res.status(200);
-          res.end();
-      }
-  });
-});
+// app.put('/updateCustomer/:id', function(req, res){
+//   let query = `UPDATE Customers SET firstName = ?, lastName = ?, rewardSpend = ?, email = ? WHERE Customers.customerID = ?;`
+//   let inserts = [req.body.firstName, req.body.lastName, req.body.rewardSpend, req.body.email, req.params.id];
+//   db.pool.query(query, inserts, function(error, results, fields){
+//       if(error){
+//           console.log(error)
+//           res.write(JSON.stringify(error));
+//           res.end();
+//       }else{
+//           res.status(200);
+//           res.end();
+//       }
+//   });
+// });
 
 app.put('/updateCoffee/:id', function(req, res){
   let query = `UPDATE Coffees SET type = ?, volumeOfCoffeeInGrams = ?, volumeOfWaterInLiters = ?, additive = ?, brewTime = ?, price = ?, specialRequest = ? WHERE Coffees.coffeeID = ?;`
@@ -302,20 +291,20 @@ app.delete('/deleteOrder/:id', function (req, res) {
   })
 })
 
-app.delete('/deleteCustomer/:id', function (req, res) {
-  // let data = req.body
-  let query1 = `DELETE FROM Customers WHERE Customers.customerID = ?`
-  db.pool.query(query1, [req.params.id], function(error, results, fields){
-    if(error){
-        console.log(error)
-        res.write(JSON.stringify(error))
-        res.status(400)
-        res.end()
-    }else{
-        res.status(202).end()
-    }
-  })
-})
+// app.delete('/deleteCustomer/:id', function (req, res) {
+//   // let data = req.body
+//   let query1 = `DELETE FROM Customers WHERE Customers.customerID = ?`
+//   db.pool.query(query1, [req.params.id], function(error, results, fields){
+//     if(error){
+//         console.log(error)
+//         res.write(JSON.stringify(error))
+//         res.status(400)
+//         res.end()
+//     }else{
+//         res.status(202).end()
+//     }
+//   })
+// })
 
 app.delete('/deleteCoffee/:id', function (req, res) {
   // let data = req.body
@@ -411,5 +400,5 @@ app.delete('/deleteBeanCoffees/coffeeID/:coffeeID/beanID/:beanID', function (req
 })
 
 app.listen(PORT, function(){
-  console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
+  console.log('Express started on http://flip1.engr.oregonstate.edu/' + PORT + '; press Ctrl-C to terminate.')
 });

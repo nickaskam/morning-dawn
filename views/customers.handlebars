@@ -1,3 +1,10 @@
+<form id='search_customer' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Search people for first name starting with:</label>
+    <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
+    <input type="button" value="Search" onclick="searchCustomersByFirstName()">
+</form>
+
 <table>
     <thead>
         <tr>
@@ -11,23 +18,23 @@
         </tr>
     </thead>
     <tbody>
-        {{#each data}}
+        {{#each customers}}
             <tr>
-                <td>{{this.customerID}}</td>
-                <td>{{this.firstName}}</td>
-                <td>{{this.lastName}}</td>
-                <td>${{this.rewardSpend}}</td>
-                <td>{{this.email}}</td>
-                <td><a href="/customers/{{this.customerID}}">Update</a></td>
+                <td>{{customerID}}</td>
+                <td>{{firstName}}</td>
+                <td>{{lastName}}</td>
+                <td>${{rewardSpend}}</td>
+                <td>{{email}}</td>
+                <td><a href="/customers/{{customerID}}">Update</a></td>
                 <td>
-                    <button onclick="deleteCustomer({{this.customerID}})">Delete</button>
+                    <button onclick="deleteCustomer({{customerID}})">Delete</button>
                 </td>
             </tr>
         {{/each}}
     </tbody>
 </table>
 
-<form id="addCustomer" method="POST" action="/addCustomer">
+<form id="addCustomer" method="POST" action="/customers/">
     <label for="firstName">First Name</label><br />
     <input type="text" id="firstName" name="firstName"><br />
     <label for="lastName">Last Name</label><br />
