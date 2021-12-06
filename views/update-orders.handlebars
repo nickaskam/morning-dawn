@@ -1,12 +1,12 @@
-<h1>Update {{this.orderID}}:</h1>
+<h1>Update {{order.orderID}}:</h1>
 <form id="update-order" action="/updateOrder" method="POST">
-    Order Date: <input type="date" name="orderDate" value="{{this.orderDate}}"><br>
-    Order Price: <input type="number" name="orderTotal" value="{{this.orderTotal}}"><br>
+    Order Date: <input type="date" name="orderDate" value="{{order.orderDate}}"><br>
+    Order Price: <input type="number" name="orderTotal" value="{{order.orderTotal}}"><br>
     <label for="customerID">Customer ID:</label><br />
     <select name="customerID" id="customerID">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        {{#each customers}}
+            <option value="{{id}}">{{firstName}} {{lastName}}</option>
+        {{/each}}
     </select><br />
 </form>
-<button onclick="updateOrder({{order.id}})">Update</button>
+<button onclick="updateOrder({{order.orderID}})">Update</button>

@@ -1,7 +1,6 @@
 module.exports = function(){
     var express = require('express')
     var router = express.Router()
-    const db = require('./database/db-connector')
 
     function getCustomers(res, mysql, context, complete){
         let query = "SELECT customerID, firstName, lastName, rewardSpend, email FROM Customers"

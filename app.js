@@ -20,6 +20,7 @@ app.use('/static', express.static('public'))
 app.set('view engine', 'handlebars')
 app.set('mysql', mysql)
 app.use('/customers', require('./customers.js'))
+app.use('/orders', require('./orders.js'))
 app.use('/', express.static('public'))
 
 app.get('/', function (req, res) {
@@ -49,14 +50,6 @@ app.get('/teas', function(req, res) {
 
   db.pool.query(query, function (error, rows, fields) {
     res.render('teas', { data: rows });
-  })
-})
-
-app.get('/orders', function(req, res) {
-  let query = 'SELECT * FROM Orders;'
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('orders', { data: rows });
   })
 })
 
@@ -162,21 +155,21 @@ app.post('/addBean', function (req, res) {
   })
 })
 
-app.post('/addOrder', function (req, res) {
-  let data = req.body
+// app.post('/addOrder', function (req, res) {
+//   let data = req.body
 
-  let query1 = `INSERT INTO Orders (orderDate, orderTotal, customerID)
-                VALUES ('${data.orderDate}', '${data.orderTotal}', '${data.customerID}')`
+//   let query1 = `INSERT INTO Orders (orderDate, orderTotal, customerID)
+//                 VALUES ('${data.orderDate}', '${data.orderTotal}', '${data.customerID}')`
 
-  db.pool.query(query1, function (error, rows, fields) {
-    if (error) {
-      console.log(error)
-      res.sendStatus(400)
-    } else {
-      res.redirect('/orders')
-    }
-  })
-})
+//   db.pool.query(query1, function (error, rows, fields) {
+//     if (error) {
+//       console.log(error)
+//       res.sendStatus(400)
+//     } else {
+//       res.redirect('/orders')
+//     }
+//   })
+// })
 
 app.post('/addTea', function (req, res) {
   let data = req.body
@@ -195,14 +188,14 @@ app.post('/addTea', function (req, res) {
 })
 
 // get 1
-app.get('/orders/:id', function(req, res) {
-  let query = 'SELECT * FROM Orders WHERE Orders.orderID = ?'
-  inserts = [req.params.id]
+// app.get('/orders/:id', function(req, res) {
+//   let query = 'SELECT * FROM Orders WHERE Orders.orderID = ?'
+//   inserts = [req.params.id]
 
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('update-orders', { data: rows });
-  })
-})
+//   db.pool.query(query, function (error, rows, fields) {
+//     res.render('update-orders', { data: rows });
+//   })
+// })
 
 app.get('/coffees/:id', function(req, res) {
   let query = 'SELECT * FROM Coffees WHERE Coffees.coffeeID = ?'
@@ -214,20 +207,20 @@ app.get('/coffees/:id', function(req, res) {
 })
 
 // updates
-app.put('/updateOrder/:id', function(req, res){
-  let query = `UPDATE Orders SET orderDate = ?, orderTotal = ?, customerID = ? WHERE Orders.orderID = ?;`
-  var inserts = [req.body.orderDate, req.body.orderTotal, req.body.customerID, req.params.id];
-  db.pool.query(query, inserts, function(error, results, fields){
-      if(error){
-          console.log(error)
-          res.write(JSON.stringify(error));
-          res.end();
-      }else{
-          res.status(200);
-          res.end();
-      }
-  });
-});
+// app.put('/updateOrder/:id', function(req, res){
+//   let query = `UPDATE Orders SET orderDate = ?, orderTotal = ?, customerID = ? WHERE Orders.orderID = ?;`
+//   var inserts = [req.body.orderDate, req.body.orderTotal, req.body.customerID, req.params.id];
+//   db.pool.query(query, inserts, function(error, results, fields){
+//       if(error){
+//           console.log(error)
+//           res.write(JSON.stringify(error));
+//           res.end();
+//       }else{
+//           res.status(200);
+//           res.end();
+//       }
+//   });
+// });
 
 app.put('/updateCoffee/:id', function(req, res){
   let query = `UPDATE Coffees SET type = ?, volumeOfCoffeeInGrams = ?, volumeOfWaterInLiters = ?, additive = ?, brewTime = ?, price = ?, specialRequest = ? WHERE Coffees.coffeeID = ?;`
@@ -245,20 +238,20 @@ app.put('/updateCoffee/:id', function(req, res){
 });
 
 // deletes
-app.delete('/deleteOrder/:id', function (req, res) {
-  // let data = req.body
-  let query1 = `DELETE FROM Orders WHERE Orders.orderID = ?`
-  db.pool.query(query1, [req.params.id], function(error, results, fields){
-    if(error){
-        console.log(error)
-        res.write(JSON.stringify(error))
-        res.status(400)
-        res.end()
-    }else{
-        res.status(202).end()
-    }
-  })
-})
+// app.delete('/deleteOrder/:id', function (req, res) {
+//   // let data = req.body
+//   let query1 = `DELETE FROM Orders WHERE Orders.orderID = ?`
+//   db.pool.query(query1, [req.params.id], function(error, results, fields){
+//     if(error){
+//         console.log(error)
+//         res.write(JSON.stringify(error))
+//         res.status(400)
+//         res.end()
+//     }else{
+//         res.status(202).end()
+//     }
+//   })
+// })
 
 app.delete('/deleteCoffee/:id', function (req, res) {
   // let data = req.body

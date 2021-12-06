@@ -1,6 +1,6 @@
 function updateOrder(id){
     $.ajax({
-        url: '/updateOrder/' + id,
+        url: id,
         type: 'PUT',
         data: $('#update-order').serialize(),
         success: function(result){

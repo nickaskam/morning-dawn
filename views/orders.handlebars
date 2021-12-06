@@ -1,39 +1,35 @@
-
-<a href="/coffee-orders">Coffee Orders Table</a>
-<br>
-<a href="/tea-orders">Tea Orders Table</a>
-<br>
-<form>
-    <p>Find an Order:</p>
-    <label for="orderID">Order ID:</label><br>
-    <input type="text" id="orderID" name="orderID"><br>
-    <label for="orderDate">Date:</label><br>
-    <input type="date" id="orderDate" name="orderDate"><br>
-    <button>Filter</button>
-</form>
-<br />
-<p><strong>Orders:</strong></p>
-<table>
+    <form id='search-order' action='' method=''>
+        <div class="mb-3">
+            <label class="form-label"> Search Orders with ID:</label>
+            <input id='id_search_string' class="form-control" type='number' name='id_search_string' value='' />  
+        </div>
+        <input class='btn btn-primary' type="button" value="Search" onclick="searchOrdersByID()">
+    </form>
+    <br />
+<h4>Current Orders:</h4>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Order ID:</th>
             <th>Order Date:</th>
             <th>Order Total:</th>
             <th>Customer ID:</th>
+            <th>Customer Name:</th>
             <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-    {{#each data}}
+    {{#each orders}}
         <tr>
-            <td>{{this.orderID}}</td>
-            <td>{{this.orderDate}}</td>
-            <td>${{this.orderTotal}}</td>
-            <td>{{this.customerID}}</td>
-            <td><a href="/orders/{{this.orderID}}">Update</a></td>
+            <td>{{orderID}}</td>
+            <td>{{niceDate}}</td>
+            <td>${{orderTotal}}</td>
+            <td>{{customerID}}</td>
+            <td>{{firstName}} {{lastName}}</td>
+            <td><a href="/orders/{{orderID}}">Update</a></td>
             <td>
-                <button onclick="deleteOrder({{this.orderID}})">Delete</button>
+                <button class="btn btn-danger" onclick="deleteOrder({{orderID}})">Delete</button>
             </td>
         </tr>
     {{/each}}
@@ -41,16 +37,16 @@
 </table>
 
 <h4>Create a New Order</h4>
-<form id="addOrder" method="POST" action="/addOrder">
+<form id="addOrder" method="POST" action="/orders/">
     <label for="orderDate">Date:</label><br />
     <input type="date" id="orderDate" name="orderDate"><br />
     <label for="orderTotal">Order Price:</label><br />
     <input type="number" id="orderTotal" name="orderTotal"><br />
-    <label for="customerID">Customer ID:</label><br />
+    <label for="customerID">Customer ID and Name:</label><br />
     <select name="customerID" id="customerID">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        {{#each customers}}
+            <option value="{{id}}">{{id}} - {{firstName}} {{lastName}}</option>
+        {{/each}}
     </select><br />
-    <button type="submit">Create new order</button>
+    <button type="submit" class="btn btn-primary">Create new order</button>
 </form>
