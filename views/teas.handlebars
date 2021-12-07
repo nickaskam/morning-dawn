@@ -1,4 +1,4 @@
-    <h1>Types of Teas</h1>
+    <h2>Types of Teas</h2>
     <form id='search-tea' action='' method=''>
         <div class="mb-3">
             <label class="form-label"> Search Teas with Origin:</label>
@@ -9,8 +9,8 @@
         <input class='btn btn-primary' type="button" value="Search" onclick="searchTeasByOrigin()">
     </form>
     <br />
-    <p>Teas:</p>
-    <table>
+    <h4>Current Teas:</h4>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Tea ID:</th>
@@ -35,7 +35,7 @@
                 <td>{{season}}</td>
                 <td>{{price}}</td>
                 <td><a href="/teas/{{teaID}}">Update</a></td>
-                <td><button onclick="deleteTea({{teaID}})">Delete</button></td>
+                <td><button class="btn btn-danger" onclick="deleteTea({{teaID}})">Delete</button></td>
             </tr>
         {{/each}}
         </tbody>

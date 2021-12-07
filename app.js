@@ -24,83 +24,14 @@ app.use('/orders', require('./orders.js'))
 app.use('/beans', require('./beans.js'))
 app.use('/coffees', require('./coffees.js'))
 app.use('/teas', require('./teas.js'))
+app.use('/beans-coffee', require('./coffee-beans.js'))
+app.use('/tea-orders', require('./tea-orders.js'))
+app.use('/coffee-orders', require('./coffee-orders.js'))
 app.use('/', express.static('public'))
 
 app.get('/', function (req, res) {
   res.render('index');
 });
-
-// reads
-
-app.get('/beans-coffee', function(req, res) {
-  let query = 'SELECT * FROM BeansWithCoffees;'
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('beans-coffee', { data: rows });
-  })
-})
-
-app.get('/tea-orders', function(req, res) {
-  let query = 'SELECT * FROM TeaOrders;'
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('tea-orders', { data: rows });
-  })
-})
-
-app.get('/coffee-orders', function(req, res) {
-  let query = 'SELECT * FROM CoffeeOrders;'
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('coffee-orders', { data: rows });
-  })
-})
-
-// inserts
-app.post('/addBeansCoffee', function (req, res) {
-  let data = req.body
-
-  let query1 = `INSERT INTO BeansWithCoffees (beanID, coffeeID) VALUES ('${data.beanID}', '${data.coffeeID}')`
-
-  db.pool.query(query1, function (error, rows, fields) {
-    if (error) {
-      console.log(error)
-      res.sendStatus(400)
-    } else {
-      res.redirect('/beans-coffee')
-    }
-  })
-})
-
-app.post('/addCoffeeOrders', function (req, res) {
-  let data = req.body
-
-  let query1 = `INSERT INTO CoffeeOrders (orderID, coffeeID) VALUES ('${data.orderID}', '${data.coffeeID}')`
-
-  db.pool.query(query1, function (error, rows, fields) {
-    if (error) {
-      console.log(error)
-      res.sendStatus(400)
-    } else {
-      res.redirect('/coffee-orders')
-    }
-  })
-})
-
-app.post('/addTeaOrders', function (req, res) {
-  let data = req.body
-
-  let query1 = `INSERT INTO TeaOrders (orderID, teaID) VALUES ('${data.orderID}', '${data.teaID}')`
-
-  db.pool.query(query1, function (error, rows, fields) {
-    if (error) {
-      console.log(error)
-      res.sendStatus(400)
-    } else {
-      res.redirect('/tea-orders')
-    }
-  })
-})
 
 app.delete('/coffeeOrders/coffeeID/:coffeeID/orderID/:orderID', function (req, res) {
   // let data = req.body

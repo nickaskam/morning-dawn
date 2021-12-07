@@ -1,26 +1,38 @@
-<table>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Coffee ID:</th>
+            <th>Coffee Type:</th>
             <th>Order ID:</th>
+            <th>Order Total:</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-    {{#each data}}
+    {{#each coffee_orders}}
         <tr>
-            <td>{{this.coffeeID}}</td>
-            <td>{{this.orderID}}</td>
-            <td><button onclick="deleteCoffeeOrders({{this.coffeeID}}, {{this.orderID}})">Delete</button></td>
+            <td>{{coffeeID}}</td>
+            <td>{{type}}</td>
+            <td>{{orderID}}</td>
+            <td>${{orderTotal}}</td>
+            <td><button class="btn btn-danger" onclick="deleteCoffeeOrders({{coffeeID}}, {{orderID}})">Delete</button></td>
         </tr>
     {{/each}}
     </tbody>
 </table>
 
-<form id="addCoffeeOrders" method="POST" action="/addCoffeeOrders">
+<form id="addCoffeeOrder" method="POST" action="/coffee-orders/">
     <label for="coffeeID">Coffee ID</label>
-    <input name="coffeeID" type="text" id="coffeeID" />
+    <select name="coffeeID" id="coffeeID">
+        {{#each coffees}}
+            <option value="{{coffeeID}}">{{coffeeID}} - {{type}}</option>
+        {{/each}}
+    </select><br />
     <label for="orderID">Order ID</label>
-    <input name="orderID" type="text" id="orderID" />
-    <button type="submit">Add Coffee Order</button> 
+    <select name="orderID" id="orderID">
+        {{#each orders}}
+            <option value="{{orderID}}">{{orderID}} - ${{orderTotal}}</option>
+        {{/each}}
+    </select><br />
+    <button type="submit">Add Tea Order</button> 
 </form>

@@ -125,7 +125,7 @@ module.exports = function(){
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
-                res.redirect('/orders');
+                res.redirect('/orders/');
             }
         });
     });

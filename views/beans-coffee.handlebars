@@ -1,26 +1,41 @@
-<table>
+<h2>Beans with Coffee</h2>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Bean ID:</th>
+            <th>Country of Origin:</th>
+            <th>Roast Type:</th>
             <th>Coffee ID:</th>
+            <th>Type:</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-    {{#each data}}
+    {{#each beans_with_Coffees}}
         <tr>
-            <td>{{this.beanID}}</td>
-            <td>{{this.coffeeID}}</td>
-            <td><button onclick="deleteBeanCoffees({{this.coffeeID}}, {{this.beanID}})">Delete</button></td>
+            <td>{{beanID}}</td>
+            <td>{{countryOfOrigin}}</td>
+            <td>{{roastType}}</td>
+            <td>{{coffeeID}}</td>
+            <td>{{type}}</td>
+            <td><button class="btn btn-danger" onclick="deleteBeanCoffees({{this.coffeeID}}, {{this.beanID}})">Delete</button></td>
         </tr>
     {{/each}}
     </tbody>
 </table>
 
-<form id="addBeansCoffee" method="POST" action="/addBeansCoffee">
+<form id="addBeansCoffee" method="POST" action="/beans-coffee/">
     <label for="beanID">Bean ID</label>
-    <input name="beanID" type="text" id="beanID" />
-    <label for="coffee ID">Coffee ID</label>
-    <input name="coffeeID" type="text" id="coffeeID" />
+    <select name="beanID" id="beanID">
+        {{#each beans}}
+            <option value="{{beanID}}">{{beanID}} - {{countryOfOrigin}} - {{roastType}}</option>
+        {{/each}}
+    </select><br />
+    <label for="coffeeID">Coffee ID</label>
+    <select name="coffeeID" id="coffeeID">
+        {{#each coffees}}
+            <option value="{{coffeeID}}">{{coffeeID}} - {{type}}</option>
+        {{/each}}
+    </select><br />
     <button type="submit">Add Beans Coffee</button> 
 </form>
