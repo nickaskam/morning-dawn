@@ -22,6 +22,7 @@ app.set('mysql', mysql)
 app.use('/customers', require('./customers.js'))
 app.use('/orders', require('./orders.js'))
 app.use('/beans', require('./beans.js'))
+app.use('/coffees', require('./coffees.js'))
 app.use('/', express.static('public'))
 
 app.get('/', function (req, res) {
@@ -29,14 +30,6 @@ app.get('/', function (req, res) {
 });
 
 // reads
-
-app.get('/coffees', function(req, res) {
-  let query = 'SELECT * FROM Coffees;'
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('coffees', { data: rows });
-  })
-})
 
 app.get('/teas', function(req, res) {
   let query = 'SELECT * FROM Teas;'
@@ -116,22 +109,6 @@ app.post('/addTeaOrders', function (req, res) {
   })
 })
 
-app.post('/newCoffee', function (req, res) {
-  let data = req.body
-
-  let query1 = `INSERT INTO Coffees (type, volumeOfCoffeeInGrams, volumeOfWaterInLiters, additive, brewTime, price, specialRequest) 
-                VALUES ('${data.type}', '${data.volumeOfCoffeeInGrams}', '${data.volumeOfWaterInLiters}', '${data.additive}', '${data.brewTime}', '${data.price}', '${data.specialRequest}')`
-
-  db.pool.query(query1, function (error, rows, fields) {
-    if (error) {
-      console.log(error)
-      res.sendStatus(400)
-    } else {
-      res.redirect('/coffees')
-    }
-  })
-})
-
 app.post('/addTea', function (req, res) {
   let data = req.body
 
@@ -144,45 +121,6 @@ app.post('/addTea', function (req, res) {
       res.sendStatus(400)
     } else {
       res.redirect('/teas')
-    }
-  })
-})
-
-app.get('/coffees/:id', function(req, res) {
-  let query = 'SELECT * FROM Coffees WHERE Coffees.coffeeID = ?'
-  inserts = [req.params.id]
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('update-coffees', { data: rows });
-  })
-})
-
-app.put('/updateCoffee/:id', function(req, res){
-  let query = `UPDATE Coffees SET type = ?, volumeOfCoffeeInGrams = ?, volumeOfWaterInLiters = ?, additive = ?, brewTime = ?, price = ?, specialRequest = ? WHERE Coffees.coffeeID = ?;`
-  let inserts = [req.body.type, req.body.volumeOfCoffeeInGrams, req.body.volumeOfWaterInLiters, req.body.additive, req.body.brewTime, req.body.price, req.body.specialRequest, req.params.id];
-  db.pool.query(query, inserts, function(error, results, fields){
-      if(error){
-          console.log(error)
-          res.write(JSON.stringify(error));
-          res.end();
-      }else{
-          res.status(200);
-          res.end();
-      }
-  });
-});
-
-app.delete('/deleteCoffee/:id', function (req, res) {
-  // let data = req.body
-  let query1 = `DELETE FROM Coffees WHERE Coffees.coffeeID = ?`
-  db.pool.query(query1, [req.params.id], function(error, results, fields){
-    if(error){
-        console.log(error)
-        res.write(JSON.stringify(error))
-        res.status(400)
-        res.end()
-    }else{
-        res.status(202).end()
     }
   })
 })

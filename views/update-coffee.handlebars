@@ -1,0 +1,18 @@
+<h4>Update {{coffee.type}}</h4>
+<form id="update-coffee" method="POST" action="/updateCoffee">
+    <label for="type">Type:</label><br />
+    <input type="text" id="type" name="type" value="{{coffee.type}}"><br />
+    <label for="volumeOfCoffeeInGrams">Volume of Coffee (In Grams):</label><br />
+    <input type="number" id="volumeOfCoffeeInGrams" name="volumeOfCoffeeInGrams" value="{{coffee.volumeOfCoffeeInGrams}}"><br />
+    <label for="volumeOfWaterInLiters">Volume of Water (In Liters):</label><br />
+    <input type="number" id="volumeOfWaterInLiters" name="volumeOfWaterInLiters" value="{{coffee.volumeOfWaterInLiters}}"><br />
+    <label for="additive">Additive:</label><br />
+    <input type="text" id="additive" name="additive" value="{{coffee.additive}}"><br />
+    <label for="brewTime">Brew Time:</label><br />
+    <input type="text" id="brewTime" name="brewTime" value="{{coffee.brewTime}}"><br />
+    <label for="price">Price:</label><br />
+    <input type="number" id="price" name="price" value="{{coffee.price}}"><br />
+    <label for="specialRequest">Special Request:</label><br />
+    <input type="text" id="specialRequest" name="specialRequest" value="{{coffee.specialRequest}}"><br />
+</form>
+<button onclick="updateCoffee({{coffee.id}})">Update</button>

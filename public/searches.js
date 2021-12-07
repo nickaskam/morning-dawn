@@ -14,3 +14,8 @@ function searchBeansByCountry() {
     var country_string = document.getElementById('country_search_string').value
     window.location = '/beans/search/' + encodeURI(country_string)
 }
+
+function searchCoffeesByType() {
+    var type_search_string = document.getElementById('type_search_string').value
+    window.location = '/coffees/search/' + encodeURI(type_search_string)
+}

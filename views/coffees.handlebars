@@ -1,14 +1,15 @@
-<p>Filter:</p>
-{{!-- <form>
-    <label for="coffeeID">Coffee ID:</label><br>
-    <input type="text" id="coffeeID" name="coffeeID"><br>
-    <label for="type">Type:</label><br>
-    <input type="text" id="type" name="type"><br>
-    <label for="additive">Additive:</label><br>
-    <input type="text" id="additive" name="additive"><br>
-    <button>Filter</button>
-</form> --}}
-{{!-- <br /> --}}
+<h2>Coffee:</h2>
+<form id='search-coffee' action='' method=''>
+    <div class="mb-3">
+        <label class="form-label"> Search Coffee by Type:</label>
+        <input id='type_search_string' class="form-control" type='text' name='type_search_string' value=''>  
+    </div>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+
+    <input class='btn btn-primary' type="button" value="Search" onclick="searchCoffeesByType()">
+</form>
+<br />
+<h2>Current Coffees</h2>
 <table>
     <thead>
         <tr>
@@ -25,25 +26,25 @@
         </tr>
     </thead>
     <tbody>
-        {{#each data}}
+        {{#each coffees}}
         <tr>
-            <td>{{this.coffeeID}}</td>
-            <td>{{this.type}}</td>
-            <td>{{this.volumeOfCoffeeInGrams}}</td>
-            <td>{{this.volumeOfWaterInLiters}}</td>
-            <td>{{this.additive}}</td>
-            <td>{{this.brewTime}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.specialRequest}}</td>
-            <td><a href="/coffees/{{this.coffeeID}}">Update</a></td>
-            <td><button onclick="deleteCoffee({{this.coffeeID}})">Delete</button></td>
+            <td>{{coffeeID}}</td>
+            <td>{{type}}</td>
+            <td>{{volumeOfCoffeeInGrams}}</td>
+            <td>{{volumeOfWaterInLiters}}</td>
+            <td>{{additive}}</td>
+            <td>{{brewTime}}</td>
+            <td>{{price}}</td>
+            <td>{{specialRequest}}</td>
+            <td><a href="/coffees/{{coffeeID}}">Update</a></td>
+            <td><button onclick="deleteCoffee({{coffeeID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
 <h4>Create a New Coffee</h4>
-<form id="newCoffee" method="POST" action="/newCoffee">
+<form id="newCoffee" method="POST" action="/coffees/">
     <label for="type">Type:</label><br />
     <input type="text" id="type" name="type"><br />
     <label for="volumeOfCoffeeInGrams">Volume of Coffee (In Grams):</label><br />
@@ -58,5 +59,5 @@
     <input type="number" id="price" name="price"><br />
     <label for="specialRequest">Special Request:</label><br />
     <input type="text" id="specialRequest" name="specialRequest"><br />
-    <button type="submit">Create a New Coffee</button>
+    <button type="submit" class="btn btn-primary">Create a New Coffee</button>
 </form>

@@ -2,40 +2,39 @@ module.exports = function(){
     var express = require('express')
     var router = express.Router()
 
-    function getBeans(res, mysql, context, complete){
-        let query = "SELECT beanID, countryOfOrigin, roastType, DATE_FORMAT(roastDate,'%Y-%m-%d') AS roastDate FROM Beans"
+    function getCoffees(res, mysql, context, complete){
+        let query = "SELECT coffeeID, type, volumeOfCoffeeInGrams, volumeOfWaterInLiters, additive, brewTime, price, specialRequest FROM Coffees"
         mysql.pool.query(query, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error))
                 res.end()
             }
-            context.beans = results
+            context.coffees = results
             complete()
         })
     }
 
-    function getBean(res, mysql, context, id, complete){
-        var sql = "SELECT beanID, countryOfOrigin, roastType, DATE_FORMAT(roastDate,'%Y-%m-%d') AS roastDate FROM Beans WHERE beanID = ?";
+    function getCoffee(res, mysql, context, id, complete){
+        var sql = "SELECT coffeeID, type, volumeOfCoffeeInGrams, volumeOfWaterInLiters, additive, brewTime, price, specialRequest FROM Coffees WHERE coffeeID = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.bean = results[0];
+            context.coffee = results[0];
             complete();
         });
     }
 
-    function getBeanWithCountry(req, res, mysql, context, complete){
-        var query = "SELECT Beans.beanID, countryOfOrigin, roastType, DATE_FORMAT(roastDate,'%Y-%m-%d') AS roastDate FROM Beans WHERE countryOfOrigin = " + mysql.pool.escape(req.params.s)
-        console.log(query)
+    function getCoffeeWithType(req, res, mysql, context, complete){
+        var query = "SELECT coffeeID, type, volumeOfCoffeeInGrams, volumeOfWaterInLiters, additive, brewTime, price, specialRequest FROM Coffees WHERE type = " + mysql.pool.escape(req.params.s)
         mysql.pool.query(query, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error))
                 res.end()
             }
-            context.beans = results
+            context.coffees = results
             console.log(context)
             complete()
         })
@@ -44,10 +43,10 @@ module.exports = function(){
     router.get('/', function(req, res){
         var context = {};
         var mysql = req.app.get('mysql');
-        getBeans(res, mysql, context, complete);
+        getCoffees(res, mysql, context, complete);
         function complete(){
             console.log(context)
-            res.render('beans', context);
+            res.render('coffees', context);
         }
     });
 
@@ -55,18 +54,18 @@ module.exports = function(){
     router.get('/search/:s', function(req, res){
         var context = {};
         var mysql = req.app.get('mysql');
-        getBeanWithCountry(req, res, mysql, context, complete);
+        getCoffeeWithType(req, res, mysql, context, complete);
         function complete(){
-            res.render('beans', context);
+            res.render('coffees', context);
         }
     });
 
     router.get('/:id', function(req, res){
         var context = {};
         var mysql = req.app.get('mysql');
-        getBean(res, mysql, context, req.params.id, complete);
+        getCoffee(res, mysql, context, req.params.id, complete);
         function complete(){
-            res.render('update-bean', context);
+            res.render('update-coffee', context);
             console.log(context)
         }
     });
@@ -75,8 +74,8 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.id)
-        var sql = "UPDATE Beans SET countryOfOrigin=?, roastType=?, roastDate=? WHERE beanID=?";
-        var inserts = [req.body.countryOfOrigin, req.body.roastType, req.body.roastDate, req.params.id];
+        var sql = "UPDATE Coffees SET type=?, volumeOfCoffeeInGrams=?, volumeOfWaterInLiters=?, additive=?, brewTime=?, price=?, specialRequest=? WHERE coffeeID=?";
+        var inserts = [req.body.type, req.body.volumeOfCoffeeInGrams, req.body.volumeOfWaterInLiters, req.body.additive, req.body.brewTime, req.body.price, req.body.specialRequest, req.params.id];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 console.log(error)
@@ -91,25 +90,26 @@ module.exports = function(){
         });
     });
 
+
     router.post('/', function(req, res){
         console.log(req.body)
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO Beans (countryOfOrigin, roastType, roastDate) VALUES (?,?,?)";
-        var inserts = [req.body.countryOfOrigin, req.body.roastType, req.body.roastDate];
+        var sql = "INSERT INTO Coffees (type, volumeOfCoffeeInGrams, volumeOfWaterInLiters, additive, brewTime, price, specialRequest) VALUES (?,?,?,?,?,?,?)";
+        var inserts = [req.body.type, req.body.volumeOfCoffeeInGrams, req.body.volumeOfWaterInLiters, req.body.additive, req.body.brewTime, req.body.price, req.body.specialRequest];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 console.log(JSON.stringify(error))
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
-                res.redirect('/beans/');
+                res.redirect('/coffees/');
             }
         });
     });
 
     router.delete('/:id', function(req, res){
         var mysql = req.app.get('mysql');
-        var sql = "DELETE FROM Beans WHERE beanID = ?";
+        var sql = "DELETE FROM Coffees WHERE coffeeID = ?";
         var inserts = [req.params.id];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){

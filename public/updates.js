@@ -22,7 +22,7 @@ function updateCustomer(id){
 
 function updateCoffee(id){
     $.ajax({
-        url: '/updateCoffee/' + id,
+        url: id,
         type: 'PUT',
         data: $('#update-coffee').serialize(),
         success: function(result){
