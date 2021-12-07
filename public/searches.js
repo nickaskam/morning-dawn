@@ -19,3 +19,8 @@ function searchCoffeesByType() {
     var type_search_string = document.getElementById('type_search_string').value
     window.location = '/coffees/search/' + encodeURI(type_search_string)
 }
+
+function searchTeasByOrigin() {
+    var origin_search_string = document.getElementById('origin_search_string').value
+    window.location = '/teas/search/' + encodeURI(origin_search_string)
+}

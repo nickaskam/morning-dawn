@@ -1,0 +1,16 @@
+<h1>Update {{tea.origin}}</h1>
+<form id="update-tea" method="POST" action="/updateTea">
+    <label for="origin">Origin:</label><br />
+    <input type="text" id="origin" name="origin" value="{{tea.origin}}"><br />
+    <label for="color">Color:</label><br />
+    <input type="text" id="color" name="color" value="{{tea.color}}"><br />
+    <label for="matcha">Matcha:</label><br />
+    <input type="text" id="matcha" name="matcha" value="{{tea.matcha}}"><br />
+    <label for="flavor">Flavor:</label><br />
+    <input type="text" id="flavor" name="flavor" value="{{tea.flavor}}"><br />
+    <label for="season">Season:</label><br />
+    <input type="text" id="season" name="season" value="{{tea.season}}"><br />
+    <label for="price">Price:</label><br />
+    <input type="number" id="price" name="price" value="{{tea.price}}"><br />
+    <button type="submit" class="btn btn-primary" onclick="updateTea({{tea.teaID}})">Update Tea</button>
+</form>

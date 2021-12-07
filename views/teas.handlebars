@@ -1,24 +1,14 @@
-    <a href="/new-tea">New Tea</a>
-    <br>
-    <a href="/tea-order">Tea Orders Table</a>
-    <br>
-    <form>
-      <p>Find a Tea:</p>
-      <label for="teaID">Tea ID:</label><br>
-      <input type="text" id="teaID" name="teaID"><br>
-      <label for="origin">Origin:</label><br>
-      <input type="text" id="origin" name="origin"><br>
-      <label for="color">Color:</label><br>
-      <input type="text" id="color" name="color"><br>
-      <label for="matcha">Matcha:</label><br>
-      <input type="text" id="matcha" name="matcha"><br>
-      <label for="flavor">Flavor:</label><br>
-      <input type="text" id="flavor" name="flavor"><br>
-      <label for="season">Season:</label><br>
-      <input type="text" id="season" name="season"><br>
-      <button>Filter</button>
+    <h1>Types of Teas</h1>
+    <form id='search-tea' action='' method=''>
+        <div class="mb-3">
+            <label class="form-label"> Search Teas with Origin:</label>
+            <input id='origin_search_string' class="form-control" type='text' name='origin_search_string' value=''>  
+        </div>
+    <!--- this form does not submit directly, the button handles all the interaction with backend -->
+
+        <input class='btn btn-primary' type="button" value="Search" onclick="searchTeasByOrigin()">
     </form>
-    <br>
+    <br />
     <p>Teas:</p>
     <table>
         <thead>
@@ -35,23 +25,24 @@
             </tr>
         </thead>
         <tbody>
-        {{#each data}}
+        {{#each teas}}
             <tr>
-                <td>{{this.teaID}}</td>
-                <td>{{this.origin}}</td>
-                <td>{{this.color}}</td>
-                <td>{{this.matcha}}</td>
-                <td>{{this.flavor}}</td>
-                <td>{{this.season}}</td>
-                <td>{{this.price}}</td>
-                <td>Update</td>
-                <td><button onclick="deleteTea({{this.teaID}})">Delete</button></td>
+                <td>{{teaID}}</td>
+                <td>{{origin}}</td>
+                <td>{{color}}</td>
+                <td>{{matcha}}</td>
+                <td>{{flavor}}</td>
+                <td>{{season}}</td>
+                <td>{{price}}</td>
+                <td><a href="/teas/{{teaID}}">Update</a></td>
+                <td><button onclick="deleteTea({{teaID}})">Delete</button></td>
             </tr>
         {{/each}}
         </tbody>
     </table>
 
-<form id="addTea" method="POST" action="/addTea">
+<h4>Make a New Tea</h4>
+<form id="addTea" method="POST" action="/teas/">
     <label for="origin">Origin:</label><br />
     <input type="text" id="origin" name="origin"><br />
     <label for="color">Color:</label><br />
@@ -64,5 +55,5 @@
     <input type="text" id="season" name="season"><br />
     <label for="price">Price:</label><br />
     <input type="number" id="price" name="price"><br />
-    <button type="submit">Create New Tea</button>
+    <button type="submit" class="btn btn-primary">Create New Tea</button>
 </form>

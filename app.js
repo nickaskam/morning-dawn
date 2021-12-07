@@ -23,6 +23,7 @@ app.use('/customers', require('./customers.js'))
 app.use('/orders', require('./orders.js'))
 app.use('/beans', require('./beans.js'))
 app.use('/coffees', require('./coffees.js'))
+app.use('/teas', require('./teas.js'))
 app.use('/', express.static('public'))
 
 app.get('/', function (req, res) {
@@ -30,14 +31,6 @@ app.get('/', function (req, res) {
 });
 
 // reads
-
-app.get('/teas', function(req, res) {
-  let query = 'SELECT * FROM Teas;'
-
-  db.pool.query(query, function (error, rows, fields) {
-    res.render('teas', { data: rows });
-  })
-})
 
 app.get('/beans-coffee', function(req, res) {
   let query = 'SELECT * FROM BeansWithCoffees;'
@@ -105,37 +98,6 @@ app.post('/addTeaOrders', function (req, res) {
       res.sendStatus(400)
     } else {
       res.redirect('/tea-orders')
-    }
-  })
-})
-
-app.post('/addTea', function (req, res) {
-  let data = req.body
-
-  let query1 = `INSERT INTO Teas (origin, color, matcha, flavor, season, price) 
-                VALUES ('${data.origin}', '${data.color}', '${data.matcha}', '${data.flavor}', '${data.season}', '${data.price}')`
-
-  db.pool.query(query1, function (error, rows, fields) {
-    if (error) {
-      console.log(error)
-      res.sendStatus(400)
-    } else {
-      res.redirect('/teas')
-    }
-  })
-})
-
-app.delete('/deleteTea/:id', function (req, res) {
-  // let data = req.body
-  let query1 = `DELETE FROM Teas WHERE Teas.teaID = ?`
-  db.pool.query(query1, [req.params.id], function(error, results, fields){
-    if(error){
-        console.log(error)
-        res.write(JSON.stringify(error))
-        res.status(400)
-        res.end()
-    }else{
-        res.status(202).end()
     }
   })
 })

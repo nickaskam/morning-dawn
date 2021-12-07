@@ -41,3 +41,15 @@ function updateBean(id){
         }
     })
 };
+
+function updateTea(id){
+    $.ajax({
+        url: id,
+        type: 'PUT',
+        data: $('#update-tea').serialize(),
+        success: function(result){
+            window.location.replace("./");
+        }
+    })
+};
+
