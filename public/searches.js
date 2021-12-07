@@ -9,3 +9,8 @@ function searchOrdersByID() {
     var id_search_string  = document.getElementById('id_search_string').value
     window.location = '/orders/search/' + encodeURI(id_search_string)
 }
+
+function searchBeansByCountry() {
+    var country_string = document.getElementById('country_search_string').value
+    window.location = '/beans/search/' + encodeURI(country_string)
+}

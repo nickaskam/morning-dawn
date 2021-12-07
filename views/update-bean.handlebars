@@ -1,0 +1,10 @@
+<h4>Update Bean {{bean.beanID}}:</h4>
+<form id="update-bean" method="POST" action="/updateBean">
+    <label for="countryOfOrigin">Country of Origin:</label><br />
+    <input type="text" id="countryOfOrigin" name="countryOfOrigin" value="{{bean.countryOfOrigin}}"><br />
+    <label for="roastType">Roast Type:</label><br />
+    <input type="text" id="roastType" name="roastType" value="{{bean.roastType}}"><br />
+    <label for="roastDate">Roast Date:</label><br />
+    <input type="date" id="roastDate" name="roastDate" value="{{bean.roastDate}}"><br />
+</form>
+<button class="btn btn-primary" onclick="updateBean({{bean.beanID}})">Update Bean</button>

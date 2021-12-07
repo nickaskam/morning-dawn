@@ -30,3 +30,14 @@ function updateCoffee(id){
         }
     })
 };
+
+function updateBean(id){
+    $.ajax({
+        url: id,
+        type: 'PUT',
+        data: $('#update-bean').serialize(),
+        success: function(result){
+            window.location.replace("./");
+        }
+    })
+};

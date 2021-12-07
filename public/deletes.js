@@ -30,7 +30,7 @@ function deleteCoffee(id){
 
 function deleteBean(id){
     $.ajax({
-        url: '/deleteBean/' + id,
+        url: id,
         type: 'DELETE',
         success: function(result){
             window.location.reload(true)
